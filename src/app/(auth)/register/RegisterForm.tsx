@@ -5,15 +5,31 @@ import { GiPadlock } from 'react-icons/gi';
 import { useForm } from 'react-hook-form';
 import { registerSchema, RegisterSchema } from '@/lib/schemas/registerSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { registerUser } from '@/app/actions/authActions';
 
 const RegisterForm = () => {
-  const { register, handleSubmit, formState: { errors, isValid } } = useForm<RegisterSchema>({
+  const { register, handleSubmit, setError, formState: { errors, isValid, isSubmitting } } = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
     mode: 'onTouched'
   });
 
-  const onSubmit = (values: RegisterSchema) => {
-    console.log(values);
+  const onSubmit = async (values: RegisterSchema) => {
+    const result = await registerUser(values);
+
+    if (result.status === 'success') {
+      console.log('successfully registered')
+    } else {
+      if (Array.isArray(result.error)) {
+        result.error.forEach((e) => {
+          const fieldName = e.path.join('.') as 'name' | 'email' | 'password';
+          setError(fieldName, { message: e.message })
+        })
+      } else {
+        setError('root.serverError', { message: result.error })
+      }
+
+    }
+    console.log(result);
   }
 
   return (
@@ -53,7 +69,10 @@ const RegisterForm = () => {
               isInvalid={!!errors.password}
               errorMessage={errors.password?.message}
             />
-            <Button isDisabled={!isValid} fullWidth color='secondary' type='submit'>
+            {errors.root?.serverError && (
+              <p className='text-danger text-sm'>{errors.root.serverError.message}</p>
+            )}
+            <Button isLoading={isSubmitting} isDisabled={!isValid} fullWidth color='secondary' type='submit'>
               Register
             </Button>
           </div>
