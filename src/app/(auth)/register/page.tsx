@@ -1,7 +1,11 @@
-const Register = () => {
+import RegisterForm from "./RegisterForm";
+
+const RegisterPage = () => {
   return (
-    <div>Register</div>
+    <div className="flex items-center justify-center vertical-center">
+      <RegisterForm />
+    </div>
   );
 };
 
-export default Register;
+export default RegisterPage;

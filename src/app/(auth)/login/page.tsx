@@ -1,7 +1,11 @@
-const Login = () => {
+import LoginForm from "./LoginForm"
+
+const LoginPage = () => {
   return (
-    <div>Login</div>
+    <div className="flex items-center justify-center vertical-center">
+      <LoginForm />
+    </div>
   );
 };
 
-export default Login;
+export default LoginPage;
