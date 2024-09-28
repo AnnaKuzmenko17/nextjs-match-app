@@ -38,6 +38,8 @@ export async function registerUser(data: RegisterSchema): Promise<ActionResult<U
       }
     })
 
+    console.log(user)
+
     return {
       status: 'success',
       data: user
