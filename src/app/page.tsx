@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import { Button } from "@nextui-org/react";
-import { signOut } from "next-auth/react";
+import { signOut } from "@/auth";
 
 const Home = async () => {
   const session = await auth();
