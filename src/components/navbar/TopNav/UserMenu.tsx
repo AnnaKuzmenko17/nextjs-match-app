@@ -30,7 +30,7 @@ export const UserMenu: FC<Props> = ({ user }) => {
             Signed in as {user?.name}
           </DropdownItem>
         </DropdownSection>
-        <DropdownItem as={Link} href='/members/edit'>
+        <DropdownItem as={Link} href="/members/edit">
           Edit profile
         </DropdownItem>
         <DropdownItem color="danger" onClick={async () => signOutUser()}>

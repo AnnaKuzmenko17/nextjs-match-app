@@ -12,7 +12,7 @@ interface Props {
 export const Providers: FC<Props> = ({ children }) => {
   return (
     <NextUIProvider>
-      <ToastContainer position='bottom-right' hideProgressBar className="z-40" />
+      <ToastContainer position="bottom-right" hideProgressBar className="z-40" />
       {children}
     </NextUIProvider>
   )
